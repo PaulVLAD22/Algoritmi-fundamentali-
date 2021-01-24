@@ -2,90 +2,66 @@
 
 from collections import defaultdict
 
-def readmat(oriented = False, filename = "ex1.txt"):
-    mat = []
 
-    with open(filename,"r") as f:
-        muchii_sortate=[]
-        v,m = [int(i) for i in f.readline().split()]
-        for _ in range(v+1):
-            mat.append([0]*(v+1))
-        gradeInt = [0 for i in range(v + 1)]
-        for _ in range(m):
-            x,y,val= [int(i) for i in f.readline().split()]
-            mat[x][y] = val
-            muchii_sortate.append((x,y))
-            gradeInt[y]+=1
-            if not oriented:
-                mat[y][x] = val
-    return mat,muchii_sortate,v,m,gradeInt
+# Using BFS as a searching algorithm
+def searching_algo_BFS(s, t, parent):
+    global ROW
+    visited = [False] * (ROW)
+    queue = []
 
+    queue.append(s)
+    visited[s] = True
 
-class Graph:
+    while queue:
 
-    def __init__(self, graph):
-        self.graph = graph
-        self. ROW = len(graph)
+        u = queue.pop(0)
 
+        for ind, val in enumerate(graph[u]):
+            if visited[ind] == False and val > 0:
+                queue.append(ind)
+                visited[ind] = True
+                parent[ind] = u
 
-    # Using BFS as a searching algorithm
-    def searching_algo_BFS(self, s, t, parent):
+    return True if visited[t] else False
 
-        visited = [False] * (self.ROW)
-        queue = []
+# Applying fordfulkerson algorithm
+def ford_fulkerson(source, sink):
+    parent = [-1] * (ROW)
+    max_flow = 0
 
-        queue.append(s)
-        visited[s] = True
+    while searching_algo_BFS(source, sink, parent):
 
-        while queue:
+        path_flow = float("Inf")
+        s = sink
+        while(s != source):
+            path_flow = min(path_flow, graph[parent[s]][s])
+            s = parent[s]
 
-            u = queue.pop(0)
+        # Adding the path flows
+        max_flow += path_flow
 
-            for ind, val in enumerate(self.graph[u]):
-                if visited[ind] == False and val > 0:
-                    queue.append(ind)
-                    visited[ind] = True
-                    parent[ind] = u
+        # Updating the residual values of edges
+        v = sink
+        while(v != source):
+            u = parent[v]
+            graph[u][v] -= path_flow
+            graph[v][u] += path_flow
+            v = parent[v]
 
-        return True if visited[t] else False
+    return max_flow
+with open('fluxuri.in') as f:
+    n, m = [int(i) for i in f.readline().split()]
+    graph = [[0 for _ in range(n)] for _ in range(n)]
+    #source = int(f.readline())
+    #sink = int(f.readline())
+    source = 0
+    sink = n-1
+    for _ in range(m):
+        x, y, c = [int(i) for i in f.readline().split()]
+        graph[x][y] = c
 
-    # Applying fordfulkerson algorithm
-    def ford_fulkerson(self, source, sink):
-        parent = [-1] * (self.ROW)
-        max_flow = 0
-
-        while self.searching_algo_BFS(source, sink, parent):
-
-            path_flow = float("Inf")
-            s = sink
-            while(s != source):
-                path_flow = min(path_flow, self.graph[parent[s]][s])
-                s = parent[s]
-
-            # Adding the path flows
-            max_flow += path_flow
-
-            # Updating the residual values of edges
-            v = sink
-            while(v != source):
-                u = parent[v]
-                self.graph[u][v] -= path_flow
-                self.graph[v][u] += path_flow
-                v = parent[v]
-
-        return max_flow
+print(graph)
+ROW = len(graph)
 
 
-graph = [[0, 0, 6, 0, 8, 0],
-         [0, 0, 0, 0, 0, 7],
-         [0, 5, 0, 3, 1, 0],
-         [0, 0, 0, 0, 0, 5],
-         [0, 0,0 ,4, 0, 0],
-         [0, 0, 0, 0, 0, 0]]
-
-g = Graph(graph)
-
-source = 0
-sink = 5
-
-print("Max Flow: %d " % g.ford_fulkerson(source, sink))
+print("Max Flow: %d " % ford_fulkerson(source, sink))
