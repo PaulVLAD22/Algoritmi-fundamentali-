@@ -39,6 +39,13 @@ def sortateTopologica():
                     q.appendleft(j)
     return sortare
 
+def matriceToList(matrice,n,m):
+    lista=[[] for i in range (n+1)]
+    for i in range (len(matrice)):
+        for j in range (len(matrice[i])):
+            if (matrice[i][j]!=0):
+                lista[i].append(j)
+    return lista
 
 
 graf,muchii_sortate,n,m,gradeInt=readmat()
