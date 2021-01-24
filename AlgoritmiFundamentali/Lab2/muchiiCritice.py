@@ -6,7 +6,7 @@ def readmat(oriented = False, filename = "ex1.txt"):
         for _ in range(v+1):
             mat.append([0]*(v+1))
         for _ in range(m):
-            x,y = [int(i) for i in f.readline().split()]
+            x,y,val = [int(i) for i in f.readline().split()]
             mat[x][y] = 1
             if not oriented:
                 mat[y][x] = 1
@@ -44,7 +44,7 @@ tata = [0 for i in range (100)]
 low = [ 0 for i in range (100)]
 crit = [0 for i in range (100)] #vector caracteristic de noduri critice
 vecini = [0 for i in range (100)]
-s=int(input)
+s=1
 if (dfs(s)>1):
     crit[s]=1
 else:
