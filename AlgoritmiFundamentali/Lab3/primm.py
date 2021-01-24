@@ -39,7 +39,7 @@ def prim(nod,graf):
 
     print(tata)
 
-#VERIFICA
+
 graf,muchii_sortate,n,m=readmat()
 d=[ 1000 for i in range (n+1)]
 tata= [0 for i in range (n+1)]

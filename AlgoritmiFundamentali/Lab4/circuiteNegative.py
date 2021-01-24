@@ -16,8 +16,21 @@ def readmat(oriented = False, filename = "ex1.txt"):
             pctControl[int(i)]=True
     return mat,muchii_sortate,v,m
 
-#IA TE DUPA SEMINAR
+def bellmanFordCircuiteNegative(s):
+    global d,tata,graf
+    d[s]=0
+    for i in range (1,n):
+        print(i)
+        for p in muchii_sortate:
+            if (d[p[0]]+graf[p[0]][p[1]]<d[p[1]]):
+                d[p[1]]=d[p[0]]+graf[p[0]][p[1]]
+                tata[p[1]]=p[0]
+    for p in muchii_sortate:
+        if (d[p[0]] + graf[p[0]][p[1]] < d[p[1]]):
+            d[p[1]] = d[p[0]] + graf[p[0]][p[1]]
+            tata[p[1]] = p[0]
+            print(p[0],p[1],"Circuit negativ")
+    print(d)
 
 
-graf,muchii_sortate,n,m=readmat()
-
+graf,muchii_sortate,n,m=readmat(oriented=True)

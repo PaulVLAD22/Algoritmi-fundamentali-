@@ -27,6 +27,8 @@ def editdistance(s1,s2):
                 distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
         distances = distances_
     return distances[-1]
+
+
 file = "cluster_input.txt"
 d = editdistance
 words = []
@@ -41,9 +43,10 @@ distances = []
 lastindex = 0
 for i in words:
     for j in words:
-        if i != j and i > j:
+        if i > j: # and i != j
             distances.append((i,j,d(i,j)))
 distances.sort(key = keysort)
+
 classes = [[w] for w in words]
 while len(classes) > k:
     while lastindex < len(distances):
