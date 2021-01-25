@@ -17,7 +17,9 @@ def readmat(oriented = False, filename = "ex1.txt"):
     return mat,muchii_sortate,v,m
 
 def bellmanFordCircuiteNegative(s):
-    global d,tata,graf
+    d=[0 for i in range (n+1)]
+    tata=[0 for i in range (n+1)]
+    graf
     d[s]=0
     for i in range (1,n):
         print(i)
@@ -30,7 +32,8 @@ def bellmanFordCircuiteNegative(s):
             d[p[1]] = d[p[0]] + graf[p[0]][p[1]]
             tata[p[1]] = p[0]
             print(p[0],p[1],"Circuit negativ")
-    print(d)
+    print(d,tata)
 
 
 graf,muchii_sortate,n,m=readmat(oriented=True)
+bellmanFordCircuiteNegative(2)

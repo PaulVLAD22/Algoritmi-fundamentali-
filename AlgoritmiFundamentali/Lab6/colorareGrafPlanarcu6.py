@@ -21,16 +21,6 @@ def readmat(oriented = False, filename = "ex1.txt"):
             pctControl[int(i)]=True
     return mat,muchii_sortate,v,m
 
-def colorare():
-    culori=[0 for i in range (n+1)]
-    global graf,n
-    if (n<=6):
-        for i in range (n+1):
-            culori[i]=i
-    else:
-        pass
-    #CEVA
-
 def colorareAdam(nod):
     global graf,n,m
     if (m>3*n-6):
@@ -54,7 +44,7 @@ def colorareAdam(nod):
         print(col[i])
         if (maxc<col[i]):
             maxc=col[i]
-    print(maxc+" colorabil")
+    print(str(maxc)+" colorabil")
 
 def urmCol(nod):
     global col

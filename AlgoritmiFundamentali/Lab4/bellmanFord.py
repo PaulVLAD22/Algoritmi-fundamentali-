@@ -26,8 +26,7 @@ def bellmanFord(s):
                 d[p[1]]=d[p[0]]+graf[p[0]][p[1]]
                 tata[p[1]]=p[0]
     print(d)
-#ciclu negativ => am repetat pasi de n+1 ori, am fost la toate nodurile si la unul am fost inca odata
-#care sunt nodurile => de fiecare data avem un contor cu de cate ori am mers in nodul respectiv in bellanford
+
 graf,muchii_sortate,n,m=readmat(oriented=True)
 
 d=[1000 for i in range (n+1)]

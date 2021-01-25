@@ -10,12 +10,12 @@ def readmat(oriented = False, filename = "ex1.txt"):
             mat.append([0]*(v+1))
         gradeInt = [0 for i in range(v + 1)]
         for _ in range(m):
-            x,y,val= [int(i) for i in f.readline().split()]
-            mat[x][y] = val
+            x,y= [int(i) for i in f.readline().split()]
+            mat[x][y] = 1
             muchii_sortate.append((x,y))
             gradeInt[y]+=1
             if not oriented:
-                mat[y][x] = val
+                mat[y][x] = 1
     return mat,muchii_sortate,v,m,gradeInt
 
 def sortateTopologica():
